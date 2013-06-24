@@ -1,29 +1,10 @@
-﻿/**
- * @license Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.html or http://ckeditor.com/license
- */
-
-var detect = function () {
-    var extraPluginsSettings;
-
-    if (navigator.userAgent.match(/safari/i)) {
-        extraPluginsSettings = 'clipboard,font';
-    }
-    else {
-        extraPluginsSettings = 'autogrow,clipboard,font';
-    }
-
-    return extraPluginsSettings;
-};
-
-
-CKEDITOR.editorConfig = function( config ) {
+﻿CKEDITOR.editorConfig = function( config ) {
     config.language = 'de';
     config.height = '200px';
     config.width = 600;
     config.removePlugins = 'elementspath';
-    config.extraPlugins = detect();
-    config.contentsCss = '/c/content.css';
+    config.extraPlugins = 'autogrow,clipboard,font,wordcount';
+    config.contentsCss = '/javascripts/ckeditor/contents.css';
     config.enterMode = CKEDITOR.ENTER_BR;
     config.baseHref = '/';
     config.toolbar = [
