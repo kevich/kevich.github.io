@@ -26,6 +26,7 @@
     <div id="main_content_wrap" class="outer">
         <section id="main_content" class="inner">
             <textarea name="editor"></textarea>
+            <textarea name="editor2"></textarea>
         </section>
     </div>
     <script>
@@ -38,6 +39,14 @@
                 charLimit: 200
             },
             width: 600
+        });
+        CKEDITOR.replace('editor2', {
+            toolbar: [
+                ['Source', '-', 'Bold', 'Italic', '-', 'Subscript','Superscript', '-',
+                    'NumberedList', 'BulletedList','Font','FontSize', '-', 'Link', 'Unlink']
+            ],
+            extraPlugins: 'autogrow,clipboard,font',
+        width: 600
         });
     </script>
 
