@@ -25,9 +25,21 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
         <section id="main_content" class="inner">
-            <textarea class="ckeditor"></textarea>
+            <textarea name="editor"></textarea>
         </section>
     </div>
+    <script>
+        CKEDITOR.replace('editor', {
+            toolbar: [
+                ['Source', '-', 'Bold', 'Italic', '-', 'Subscript','Superscript', '-',
+                    'NumberedList', 'BulletedList','Font','FontSize', '-', 'Link', 'Unlink']
+            ],
+            wordcount: {
+                charLimit: $(editors[i]).attr('data-limit')
+            },
+            width: 600
+        });
+    </script>
 
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
