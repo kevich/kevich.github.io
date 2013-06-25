@@ -1,7 +1,6 @@
 ﻿CKEDITOR.editorConfig = function( config ) {
     config.language = 'de';
     config.height = '200px';
-    config.width = 600;
     config.removePlugins = 'elementspath';
     config.extraPlugins = 'autogrow,clipboard,font,wordcount';
     config.contentsCss = '/javascripts/ckeditor/contents.css';

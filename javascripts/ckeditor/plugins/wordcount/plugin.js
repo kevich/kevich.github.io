@@ -4,19 +4,18 @@
  */
 
 CKEDITOR.plugins.add('wordcount', {
-    lang: ['ca', 'de', 'en', 'es', 'fr', 'pl'],
+    lang: ['ca', 'de', 'en', 'es', 'fr', 'no', 'pl'],
     init: function (editor) {
         if (editor.elementMode === CKEDITOR.ELEMENT_MODE_INLINE) {
             return;
         }
 
-        var defaultFormat = '<span class="cke_path_item">';
-
-        var intervalId;
-        var lastWordCount;
-        var lastCharCount = 0;
-        var limitReachedNotified = false;
-        var limitRestoredNotified = false;
+        var defaultFormat = '<span class="cke_path_item">',
+            intervalId,
+            lastWordCount,
+            lastCharCount = 0,
+            limitReachedNotified = false,
+            limitRestoredNotified = false;
 
         // Default Config
         var defaultConfig = {
@@ -31,7 +30,6 @@ CKEDITOR.plugins.add('wordcount', {
 
         if (config.showCharCount) {
             defaultFormat += editor.lang.wordcount.CharCount + '&nbsp;%charCount%';
-
 
             if (config.charLimit != 'unlimited') {
                 defaultFormat += '&nbsp;(' + editor.lang.wordcount.limit + '&nbsp;' + config.charLimit + ')';
@@ -75,11 +73,15 @@ CKEDITOR.plugins.add('wordcount', {
         }
 
         function updateCounter(editorInstance) {
-            var wordCount = 0;
-            var charCount = 0;
+            var wordCount = 0,
+                charCount = 0,
+                text;
 
             if (editorInstance.getData()) {
-                var text = editorInstance.getData().replace(/(\r\n|\n|\r)/gm, " ").replace("&nbsp;", " ");
+                text = editorInstance.getData().
+                    replace(/(\r\n|\n|\r)/gm, " ").
+                    replace(/^\s+|\s+$/g, '').
+                    replace("&nbsp;", " ");
 
                 if (config.showWordCount) {
                     wordCount = strip(text).split(/\s+/).length;
@@ -94,10 +96,10 @@ CKEDITOR.plugins.add('wordcount', {
 
             if (charCount == lastCharCount) {
                 return true;
-            } else {
-                lastWordCount = wordCount;
-                lastCharCount = charCount;
             }
+
+            lastWordCount = wordCount;
+            lastCharCount = charCount;
 
             // Check for word limit
             if (config.showWordCount && wordCount > config.wordLimit) {
@@ -140,12 +142,12 @@ CKEDITOR.plugins.add('wordcount', {
             counterElement(editorInstance).className = "cke_wordcount";
         }
 
-        editor.on('uiSpace', function(event) {
+        editor.on('uiSpace', function (event) {
             if (event.data.space == 'bottom') {
                 event.data.html += '<div id="' + counterId(event.editor) + '" class="cke_wordcount" style=""' + ' title="' + editor.lang.wordcount.title + '"' + '>&nbsp;</div>';
             }
         }, editor, null, 100);
-        editor.on('dataReady', function(event) {
+        editor.on('dataReady', function (event) {
             var count = event.editor.getData().length;
             if (count > config.wordLimit) {
                 limitReached(editor);
@@ -161,17 +163,22 @@ CKEDITOR.plugins.add('wordcount', {
         /* editor.on('change', function (event) {
          updateCounter(event.editor);
          }, editor, null, 100);*/
-        editor.on('focus', function(event) {
-            //editorHasFocus = true;
-            intervalId = window.setInterval(function() {
-                updateCounter(editor);
-            }, 300, event.editor);
-        }, editor, null, 300);
-        editor.on('blur', function() {
-            //editorHasFocus = false;
+        /*editor.on('focus', function (event) {
+         editorHasFocus = true;
+         intervalId = window.setInterval(function () {
+         updateCounter(editor);
+         }, 300, event.editor);
+         }, editor, null, 300);*/
+        editor.on('blur', function () {
             if (intervalId) {
                 window.clearInterval(intervalId);
             }
         }, editor, null, 300);
+
+        if (!String.prototype.trim) {
+            String.prototype.trim = function () {
+                return this.replace(/^\s+|\s+$/g, '');
+            };
+        }
     }
 });
