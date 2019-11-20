@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Kevich.github.io : ckeditor test" />
+
+    <script type="text/javascript" src="javascripts/ckeditor/ckeditor.js"></script>
+
+    <title>Kevich.github.io : ckeditor test</title>
+</head>
+<body>
+<textarea name="editor">&nbsp;</textarea>
+<textarea name="editor2">&nbsp;</textarea>
+<script>
+    CKEDITOR.replace('editor', {
+        toolbar: [
+            ['Source', '-', 'Bold', 'Italic', '-', 'Subscript', 'Superscript', '-',
+                'NumberedList', 'BulletedList', 'Font', 'FontSize', '-', 'Link', 'Unlink']
+        ],
+        wordcount: {
+            charLimit: 200
+        },
+        width: 600
+    });
+    CKEDITOR.replace('editor2', {
+        toolbar: [
+            ['Source', '-', 'Bold', 'Italic', '-', 'Subscript', 'Superscript', '-',
+                'NumberedList', 'BulletedList', 'Font', 'FontSize', '-', 'Link', 'Unlink']
+        ],
+        extraPlugins: 'autogrow,clipboard,font',
+        width: 600
+    });
+</script>
+
+</body>
+</html>
